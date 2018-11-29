@@ -1,6 +1,6 @@
 ---
 title: "Social Survey 2010"
-author: "Put your name here!"
+author: "Christian Celis"
 date: "Fall 2018"
 output:
   html_document:
@@ -38,19 +38,50 @@ alldata <- read.csv(file="gss2010.csv", header=TRUE)
 ### Graphical Descriptive Results
 
 <!--Graphical results here.  Make sure to show your code.  Provide appropriate labels for axes, giving units if possible, and provide a good title for the graph, too.  Use the graphical results to describe the patterns if any that exist in the data as focused toward the research question!-->
+  
+First we will look at a barchart and compare race with the belief of continental drift
 
 ```{r}
 barchartGC(~race+condrift, data=alldata, type = "percent") 
 ```
+  
+Here we can see that there is no major difference in comparing the beliefs of whites compares to others. However, lookin at whites compared to the beliefs of blacks there is a major difference. 
 
+
+  
+Now we will compare races with the belief of capital punishment.
+
+
+```{r}
+barchartGC(~race+cappun, data=alldata, type = "percent") 
+```
+  
+Looking at the results of the barchart we can see that by comparing the beliefs of whites against black and other, there is a significant differnce. Not much of a difference when comparing black with other.
 
 ### Numerical Descriptive Results
 
 <!--Numerical results go here. Use the numerical results to describe the patterns if any that exist in the data as focused toward the research question!-->
+```{r}
+tab1 = xtabs(~race+condrift, data=alldata)
+rowPerc(tab1)
+colPerc(tab1)
+```
+
+```{r}
+tab2 = xtabs(~race+cappun, data=alldata)
+rowPerc(tab2)
+colPerc(tab2)
+```
 
 ## Inferential Results
 
 <!--State hypothesis clearly.  Make sure your discussion of the inferential test covers all the aspects that the test output produces, such as test statistic, p-value etc.  Make a decision about the null hypothesis, explain the assumptions on which the selected test/procedure was based, and why the chosen procedure satisfys the assumptions and is appropriate to answer the research question!-->
+```{r}
+chisqtestGC(tab1, graph = TRUE) 
+```
+```{r}
+chisqtestGC(tab2, graph = TRUE) 
+```
 
 
 # Discussion and Conclusion
